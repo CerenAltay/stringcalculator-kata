@@ -53,5 +53,14 @@ namespace StringCalculatorTask
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("//;\n1;2", 3)]
+        public void Add_SupportsDifferentDelimiters_ReturnsSum(string numbers, int expected)
+        {
+            var result = _stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
