@@ -26,5 +26,16 @@ namespace StringCalculatorTask
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("1,2", 3)]
+        public void Add_TwoNumbers_ReturnsSum(string numbers, int expected)
+        {
+            var stringCalculator = new StringCalculator();
+
+            var result = stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
