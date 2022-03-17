@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace StringCalculatorTask
 {
     public class StringCalculator
@@ -14,25 +13,30 @@ namespace StringCalculatorTask
                 return 0;
             }
 
-            List<char> delimiters = new() { ',', '\n' };
+            var numbersInString = RetrieveNumbersFromString(numbers);
 
-
-            if (numbers.Contains("//"))
-            {
-                numbers = numbers.Trim('/');
-                char newDelimiter = numbers[0];
-                delimiters.Add(newDelimiter);
-                numbers= numbers.Remove(0, 2);
-
-            }
-
-            char[] delimitersArray = delimiters.ToArray();
-            int sum = numbers.Split(delimitersArray).Sum(x => int.Parse(x));
+            int sum = numbersInString.Select(x => int.Parse(x)).ToList().Sum();
 
             return sum;
-
         }
 
+        private string[] RetrieveNumbersFromString(string stringInput)
+        {
+            List<char> delimiters = new() { ',', '\n' };
+
+            if (stringInput.Contains("//"))
+            {
+                stringInput = stringInput.Trim('/');
+                char customDelimiter = stringInput[0];
+                delimiters.Add(customDelimiter);
+                stringInput = stringInput.Remove(0, 2);
+            }
+            char[] delimitersArray = delimiters.ToArray();
+
+            var numbersArray = stringInput.Split(delimitersArray);
+
+            return numbersArray;
+        }
 
     }
 }
