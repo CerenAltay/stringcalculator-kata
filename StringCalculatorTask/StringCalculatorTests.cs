@@ -34,5 +34,24 @@ namespace StringCalculatorTask
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("1,2,6", 9)]
+        [InlineData("3,4,5,6,8", 26)]
+        public void Add_UnknownAmountOfNumbers_ReturnsSum(string numbers, int expected)
+        {
+            var result = _stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("1\n2,3", 6)]
+        public void Add_AllowsNewLinesBetweenNumbers_ReturnsSum(string numbers, int expected)
+        {
+            var result = _stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
