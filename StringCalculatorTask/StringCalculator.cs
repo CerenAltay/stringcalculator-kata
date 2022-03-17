@@ -14,7 +14,10 @@ namespace StringCalculatorTask
             {
                 return 0;
             }
-            return int.Parse(numbers);
+
+            int sum = numbers.Split(',').Sum(x => int.Parse(x));
+
+            return sum;
         }
     }
 }
