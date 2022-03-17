@@ -6,7 +6,7 @@ namespace StringCalculatorTask
     public class StringCalculatorTests
     {
         [Fact]
-        public void Test1()
+        public void Add_EmptyString_ReturnsZero()
         {
 
         }

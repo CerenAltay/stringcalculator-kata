@@ -8,5 +8,6 @@ namespace StringCalculatorTask
 {
     public class StringCalculator
     {
+       
     }
 }
