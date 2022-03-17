@@ -17,6 +17,7 @@ namespace StringCalculatorTask
 
         [Theory]
         [InlineData("1", 1)]
+        [InlineData("2", 2)]
         public void Add_OneNumber_ReturnsThatNumber(string numbers, int expected)
         {
             var stringCalculator = new StringCalculator();
