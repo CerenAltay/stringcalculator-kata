@@ -14,5 +14,16 @@ namespace StringCalculatorTask
 
             Assert.Equal(0, result);
         }
+
+        [Theory]
+        [InlineData("1", 1)]
+        public void Add_OneNumber_ReturnsThatNumber(string numbers, int expected)
+        {
+            var stringCalculator = new StringCalculator();
+
+            var result = stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
