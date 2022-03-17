@@ -56,6 +56,7 @@ namespace StringCalculatorTask
 
         [Theory]
         [InlineData("//;\n1;2", 3)]
+        [InlineData("//*\n1,2*3", 6)]
         public void Add_SupportsDifferentDelimiters_ReturnsSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);
