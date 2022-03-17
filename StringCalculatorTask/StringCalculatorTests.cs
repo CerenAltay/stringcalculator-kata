@@ -5,12 +5,12 @@ namespace StringCalculatorTask
 {
     public class StringCalculatorTests
     {
+        private StringCalculator _stringCalculator = new StringCalculator();
+        
         [Fact]
         public void Add_EmptyString_ReturnsZero()
         {
-            var stringCalculator = new StringCalculator();
-
-            var result = stringCalculator.Add("");
+            var result = _stringCalculator.Add("");
 
             Assert.Equal(0, result);
         }
@@ -20,20 +20,17 @@ namespace StringCalculatorTask
         [InlineData("2", 2)]
         public void Add_OneNumber_ReturnsThatNumber(string numbers, int expected)
         {
-            var stringCalculator = new StringCalculator();
-
-            var result = stringCalculator.Add(numbers);
+            var result = _stringCalculator.Add(numbers);
 
             Assert.Equal(expected, result);
         }
 
         [Theory]
         [InlineData("1,2", 3)]
+        [InlineData("3,4", 7)]
         public void Add_TwoNumbers_ReturnsSum(string numbers, int expected)
         {
-            var stringCalculator = new StringCalculator();
-
-            var result = stringCalculator.Add(numbers);
+            var result = _stringCalculator.Add(numbers);
 
             Assert.Equal(expected, result);
         }
