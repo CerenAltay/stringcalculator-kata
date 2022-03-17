@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace StringCalculatorTask
@@ -6,7 +5,7 @@ namespace StringCalculatorTask
     public class StringCalculatorTests
     {
         private StringCalculator _stringCalculator = new StringCalculator();
-        
+
         [Fact]
         public void Add_EmptyString_ReturnsZero()
         {
@@ -47,6 +46,7 @@ namespace StringCalculatorTask
 
         [Theory]
         [InlineData("1\n2,3", 6)]
+        [InlineData("3\n4,5\n7", 19)]
         public void Add_AllowsNewLinesBetweenNumbers_ReturnsSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);

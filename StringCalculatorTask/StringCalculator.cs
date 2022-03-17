@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace StringCalculatorTask
 {
@@ -10,15 +8,15 @@ namespace StringCalculatorTask
     {
         public int Add(string numbers)
         {
-            if(String.IsNullOrEmpty(numbers))
+            if (String.IsNullOrEmpty(numbers))
             {
                 return 0;
             }
-        
-            int sum = numbers.Split(',','\n').Sum(x => int.Parse(x));
+
+            char[] delimiters = new char[] { ',', '\n' };
+            int sum = numbers.Split(delimiters).Sum(x => int.Parse(x));
 
             return sum;
         }
     }
 }
- 
