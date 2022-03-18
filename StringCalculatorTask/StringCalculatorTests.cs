@@ -74,5 +74,14 @@ namespace StringCalculatorTask
 
             Assert.Equal(expectedMessage, exception.Message);
         }
+
+        [Theory]
+        [InlineData("2,1000", 2)]
+        public void Add_NumbersBiggerThan1000_ReturnsBiggerNumbersIgnoredSum(string numbers, int expected)
+        {
+            var result = _stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
