@@ -7,8 +7,8 @@ namespace StringCalculatorTask
     public class StringCalculator
     {
         private const string CustomDelimiterIndicator = "//";
-        private const char DefaultDelimiter = ',';
-        private const char NewLine = '\n';
+        private const string DefaultDelimiter = ",";
+        private const string NewLine = "\n";
         private const int MaxNumber = 1000;
 
         public int Add(string numbers)
@@ -18,12 +18,12 @@ namespace StringCalculatorTask
                 return 0;
             }
 
-            List<char> delimiters = new() { DefaultDelimiter, NewLine };
+            List<string> delimiters = new() { DefaultDelimiter, NewLine };
 
             if (numbers.Contains(CustomDelimiterIndicator))
             {
-                var customDelimiter = RetrieveCustomDelimiter(numbers);
-                delimiters.Add(customDelimiter);
+                var customDelimiters = RetrieveCustomDelimiters(numbers);
+                delimiters.AddRange(customDelimiters);
                 numbers = numbers.Split(CustomDelimiterIndicator)[1].ToString();
             }
 
@@ -42,16 +42,30 @@ namespace StringCalculatorTask
             return numbersInString.Sum();
         }
 
-        private static char RetrieveCustomDelimiter(string stringInput)
+        private static List<string> RetrieveCustomDelimiters(string stringInput)
         {
-            var customDelimiter = stringInput.Trim('/').Trim(NewLine)[0];
+            List<string> customDelimeters = new();
+            string delimiter;
+            if (stringInput.Contains('['))
+            {
+                delimiter = stringInput.Split('[', ']')[1];
+            }
+            else
+            {
+                delimiter = stringInput.Trim('/')[0].ToString();
+            }
+            customDelimeters.Add(delimiter);
 
-            return customDelimiter;
+            return customDelimeters;
         }
 
-        private static List<int> RetrieveCleanNumbers(string stringInput, char[] delimiters)
+        private static List<int> RetrieveCleanNumbers(string stringInput, string[] delimiters)
         {
-            var numbersArray = stringInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            if (stringInput.Contains('['))
+            {
+                stringInput = stringInput.Split(']')[1];
+            }
+            var numbersArray = stringInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             return numbersArray.Select(x => int.Parse(x)).ToList();
         }
@@ -63,6 +77,5 @@ namespace StringCalculatorTask
 
             throw new Exception($"negatives not allowed {negativeNumbersString}");
         }
-
     }
 }
