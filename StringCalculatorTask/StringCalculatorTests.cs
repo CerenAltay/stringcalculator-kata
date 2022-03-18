@@ -48,7 +48,7 @@ namespace StringCalculatorTask
         [Theory]
         [InlineData("1\n2,3", 6)]
         [InlineData("3\n4,5\n7", 19)]
-        public void Add_AllowsNewLinesBetweenNumbers_ReturnsSum(string numbers, int expected)
+        public void Add_NewLinesBetweenNumbers_ReturnsSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);
 
@@ -58,7 +58,7 @@ namespace StringCalculatorTask
         [Theory]
         [InlineData("//;\n1;2", 3)]
         [InlineData("//*\n1,2*3", 6)]
-        public void Add_SupportsDifferentDelimiters_ReturnsSum(string numbers, int expected)
+        public void Add_DifferentDelimiters_ReturnsSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);
 
@@ -77,6 +77,7 @@ namespace StringCalculatorTask
 
         [Theory]
         [InlineData("2,1001", 2)]
+        [InlineData("//*\n1,2*3,2300", 6)]
         public void Add_NumbersBiggerThan1000_ReturnsBiggerNumbersIgnoredSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);

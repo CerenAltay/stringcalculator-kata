@@ -9,6 +9,7 @@ namespace StringCalculatorTask
         private const string CustomDelimiterIndicator = "//";
         private const char DefaultDelimiter = ',';
         private const char NewLine = '\n';
+        private const int MaxNumber = 1000;
 
         public int Add(string numbers)
         {
@@ -33,9 +34,9 @@ namespace StringCalculatorTask
                 RestrictNegatives(numbersInString);
             }
 
-            if (numbersInString.Any(x => x > 1000))
+            if (numbersInString.Any(x => x > MaxNumber))
             {
-                numbersInString.RemoveAll(x => x > 1000);
+                numbersInString.RemoveAll(x => x > MaxNumber);
             }
 
             return numbersInString.Sum();
