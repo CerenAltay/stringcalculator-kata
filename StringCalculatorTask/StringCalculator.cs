@@ -28,6 +28,13 @@ namespace StringCalculatorTask
 
             var numbersInString = RetrieveCleanNumbers(numbers, delimiters.ToArray());
 
+            if (numbersInString.Any(x => x < 0))
+            {
+                var negativeNumbers= numbersInString.Where(x => x < 0).ToList();
+                string negativeNumbersString = string.Join(",", negativeNumbers.ToArray());
+                throw new Exception($"negatives not allowed {negativeNumbersString}");
+            }
+
             return numbersInString.Sum();
         }
         private static char RetrieveCustomDelimiter(string stringInput)

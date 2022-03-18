@@ -67,6 +67,7 @@ namespace StringCalculatorTask
 
         [Theory]
         [InlineData("1,2,-1", "negatives not allowed -1")]
+        [InlineData("1,2,-1,-4,-6", "negatives not allowed -1,-4,-6")]
         public void Add_NegativeNumber_ThrowsExceptionWithMessage(string numbers, string expectedMessage)
         {
             var exception = Assert.Throws<Exception>(() => _stringCalculator.Add(numbers));
