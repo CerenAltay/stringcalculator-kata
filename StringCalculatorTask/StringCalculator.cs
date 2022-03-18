@@ -6,6 +6,10 @@ namespace StringCalculatorTask
 {
     public class StringCalculator
     {
+        private const string CustomDelimiterIndicator = "//";
+        private const char DefaultDelimiter = ',';
+        private const char NewLine = '\n';
+
         public int Add(string numbers)
         {
             if (String.IsNullOrEmpty(numbers))
@@ -13,29 +17,31 @@ namespace StringCalculatorTask
                 return 0;
             }
 
-            var numbersInString = RetrieveNumbersFromString(numbers);
+            List<char> delimiters = new() { DefaultDelimiter, NewLine };
 
-            int sum = numbersInString.Select(x => int.Parse(x)).ToList().Sum();
+            if (numbers.Contains(CustomDelimiterIndicator))
+            {
+                var customDelimiter = RetrieveCustomDelimiter(numbers);
+                delimiters.Add(customDelimiter);
+                numbers = numbers.Split(CustomDelimiterIndicator)[1].ToString();
+            }
 
-            return sum;
+            var numbersInString = RetrieveCleanNumbers(numbers, delimiters.ToArray());
+
+            return numbersInString.Sum();
+        }
+        private static char RetrieveCustomDelimiter(string stringInput)
+        {
+            var customDelimiter = stringInput.Trim('/').Trim(NewLine)[0];
+
+            return customDelimiter;
         }
 
-        private string[] RetrieveNumbersFromString(string stringInput)
+        private static List<int> RetrieveCleanNumbers(string stringInput, char[] delimiters)
         {
-            List<char> delimiters = new() { ',', '\n' };
+            var numbersArray = stringInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-            if (stringInput.Contains("//"))
-            {
-                stringInput = stringInput.Trim('/');
-                char customDelimiter = stringInput[0];
-                delimiters.Add(customDelimiter);
-                stringInput = stringInput.Remove(0, 2);
-            }
-            char[] delimitersArray = delimiters.ToArray();
-
-            var numbersArray = stringInput.Split(delimitersArray);
-
-            return numbersArray;
+            return numbersArray.Select(x => int.Parse(x)).ToList();
         }
 
     }
