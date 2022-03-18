@@ -26,13 +26,11 @@ namespace StringCalculatorTask
                 numbers = numbers.Split(CustomDelimiterIndicator)[1].ToString();
             }
 
-            var numbersInString = RetrieveCleanNumbers(numbers, delimiters.ToArray());
+            List<int> numbersInString = RetrieveCleanNumbers(numbers, delimiters.ToArray());
 
             if (numbersInString.Any(x => x < 0))
             {
-                var negativeNumbers= numbersInString.Where(x => x < 0).ToList();
-                string negativeNumbersString = string.Join(",", negativeNumbers.ToArray());
-                throw new Exception($"negatives not allowed {negativeNumbersString}");
+                RestrictNegatives(numbersInString);
             }
 
             return numbersInString.Sum();
@@ -49,6 +47,14 @@ namespace StringCalculatorTask
             var numbersArray = stringInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
             return numbersArray.Select(x => int.Parse(x)).ToList();
+        }
+
+        private static void RestrictNegatives(List<int> numbersList)
+        {
+            var negativeNumbers = numbersList.Where(x => x < 0).ToList();
+            string negativeNumbersString = string.Join(",", negativeNumbers.ToArray());
+
+            throw new Exception($"negatives not allowed {negativeNumbersString}");
         }
 
     }
