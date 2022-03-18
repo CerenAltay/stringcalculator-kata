@@ -33,8 +33,14 @@ namespace StringCalculatorTask
                 RestrictNegatives(numbersInString);
             }
 
+            if (numbersInString.Any(x => x > 1000))
+            {
+                numbersInString.RemoveAll(x => x > 1000);
+            }
+
             return numbersInString.Sum();
         }
+
         private static char RetrieveCustomDelimiter(string stringInput)
         {
             var customDelimiter = stringInput.Trim('/').Trim(NewLine)[0];

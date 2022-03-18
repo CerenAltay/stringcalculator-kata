@@ -76,7 +76,7 @@ namespace StringCalculatorTask
         }
 
         [Theory]
-        [InlineData("2,1000", 2)]
+        [InlineData("2,1001", 2)]
         public void Add_NumbersBiggerThan1000_ReturnsBiggerNumbersIgnoredSum(string numbers, int expected)
         {
             var result = _stringCalculator.Add(numbers);
