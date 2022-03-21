@@ -18,7 +18,7 @@ namespace StringCalculatorTask
                 return 0;
             }
 
-            List<string> delimitersList = new() { DefaultDelimiter, NewLine };
+            List<string> delimitersList = new List<string>(){ DefaultDelimiter, NewLine };
 
             if (numbers.StartsWith(CustomDelimiterIndicator))
             {
