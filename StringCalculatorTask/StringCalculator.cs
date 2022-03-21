@@ -22,7 +22,7 @@ namespace StringCalculatorTask
 
             if (numbers.StartsWith(CustomDelimiterIndicator))
             {
-                delimitersList = AddCustomDelimitersToList(numbers, delimitersList);
+                delimitersList = AddCustomDelimitersToDelimitersList(numbers, delimitersList);
                 numbers = GetInputStringAfterIndicators(numbers);
             }
 
@@ -42,22 +42,17 @@ namespace StringCalculatorTask
         }
 
         #region helper methods
-        private static List<string> AddCustomDelimitersToList(string stringInput, List<string> delimiters)
+        private static List<string> AddCustomDelimitersToDelimitersList(string stringInput, List<string> delimiters)
         {
-            if (stringInput.Contains('['))
+            string customDelimiter;
+            while (stringInput.Contains('['))
             {
-                while (stringInput.Contains('['))
-                {
-                    var customDelimiter = stringInput.Split('[', ']')[1];
-                    stringInput = stringInput.Split(new[] { ']' }, 2)[1];
-                    delimiters.Add(customDelimiter);
-                }
-            }
-            else
-            {
-                var customDelimiter = stringInput.Trim('/')[0].ToString();
+                customDelimiter = stringInput.Split('[', ']')[1];
+                stringInput = stringInput.Split(new[] { ']' }, 2)[1];
                 delimiters.Add(customDelimiter);
             }
+            customDelimiter = stringInput.Trim('/')[0].ToString();
+            delimiters.Add(customDelimiter);
 
             return delimiters;
         }
