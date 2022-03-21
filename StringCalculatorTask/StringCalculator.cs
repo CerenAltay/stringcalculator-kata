@@ -18,16 +18,15 @@ namespace StringCalculatorTask
                 return 0;
             }
 
-            List<string> delimiters = new() { DefaultDelimiter, NewLine };
+            List<string> delimitersList = new() { DefaultDelimiter, NewLine };
 
-            if (numbers.Contains(CustomDelimiterIndicator))
+            if (numbers.StartsWith(CustomDelimiterIndicator))
             {
-                var customDelimiters = RetrieveCustomDelimiters(numbers);
-                delimiters.AddRange(customDelimiters);
-                numbers = numbers.Split(CustomDelimiterIndicator)[1].ToString();
+                delimitersList = AddCustomDelimitersToList(numbers, delimitersList);
+                numbers = GetInputStringAfterIndicators(numbers);
             }
 
-            List<int> numbersInString = RetrieveCleanNumbers(numbers, delimiters.ToArray());
+            List<int> numbersInString = RetrieveCleanNumbers(numbers, delimitersList.ToArray());
 
             if (numbersInString.Any(x => x < 0))
             {
@@ -42,29 +41,31 @@ namespace StringCalculatorTask
             return numbersInString.Sum();
         }
 
-        private static List<string> RetrieveCustomDelimiters(string stringInput)
+        #region helper methods
+        private static string GetInputStringAfterIndicators(string stringInput)
         {
-            List<string> customDelimeters = new();
-            string delimiter;
+            stringInput = stringInput.Split(NewLine)[1].ToString();
+
+            return stringInput;
+        }
+        private static List<string> AddCustomDelimitersToList(string stringInput, List<string> delimiters)
+        {
+            string customDelimiter;
             if (stringInput.Contains('['))
             {
-                delimiter = stringInput.Split('[', ']')[1];
+                customDelimiter = stringInput.Split('[', ']')[1];
             }
             else
             {
-                delimiter = stringInput.Trim('/')[0].ToString();
+                customDelimiter = stringInput.Trim('/')[0].ToString();
             }
-            customDelimeters.Add(delimiter);
+            delimiters.Add(customDelimiter);
 
-            return customDelimeters;
+            return delimiters;
         }
 
         private static List<int> RetrieveCleanNumbers(string stringInput, string[] delimiters)
         {
-            if (stringInput.Contains('['))
-            {
-                stringInput = stringInput.Split(']')[1];
-            }
             var numbersArray = stringInput.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             return numbersArray.Select(x => int.Parse(x)).ToList();
@@ -77,5 +78,6 @@ namespace StringCalculatorTask
 
             throw new Exception($"negatives not allowed {negativeNumbersString}");
         }
+        #endregion
     }
 }
