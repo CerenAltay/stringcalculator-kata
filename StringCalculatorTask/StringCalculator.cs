@@ -51,16 +51,21 @@ namespace StringCalculatorTask
 
         private static List<string> AddCustomDelimitersToList(string stringInput, List<string> delimiters)
         {
-            string customDelimiter;
+            string customDelimiter="";
             if (stringInput.Contains('['))
             {
-                customDelimiter = stringInput.Split('[', ']')[1];
+                while(stringInput.Contains('['))
+                {
+                    customDelimiter = stringInput.Split('[', ']')[1];
+                    stringInput = stringInput.Split(new[] { ']' }, 2)[1];
+                    delimiters.Add(customDelimiter);
+                }
             }
             else
             {
                 customDelimiter = stringInput.Trim('/')[0].ToString();
+                delimiters.Add(customDelimiter);
             }
-            delimiters.Add(customDelimiter);
 
             return delimiters;
         }
