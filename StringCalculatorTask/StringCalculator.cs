@@ -42,32 +42,31 @@ namespace StringCalculatorTask
         }
 
         #region helper methods
-        private static string GetInputStringAfterIndicators(string stringInput)
-        {
-            stringInput = stringInput.Split(NewLine)[1].ToString();
-
-            return stringInput;
-        }
-
         private static List<string> AddCustomDelimitersToList(string stringInput, List<string> delimiters)
         {
-            string customDelimiter="";
             if (stringInput.Contains('['))
             {
-                while(stringInput.Contains('['))
+                while (stringInput.Contains('['))
                 {
-                    customDelimiter = stringInput.Split('[', ']')[1];
+                    var customDelimiter = stringInput.Split('[', ']')[1];
                     stringInput = stringInput.Split(new[] { ']' }, 2)[1];
                     delimiters.Add(customDelimiter);
                 }
             }
             else
             {
-                customDelimiter = stringInput.Trim('/')[0].ToString();
+                var customDelimiter = stringInput.Trim('/')[0].ToString();
                 delimiters.Add(customDelimiter);
             }
 
             return delimiters;
+        }
+
+        private static string GetInputStringAfterIndicators(string stringInput)
+        {
+            stringInput = stringInput.Split(NewLine)[1].ToString();
+
+            return stringInput;
         }
 
         private static List<int> RetrieveCleanNumbers(string stringInput, string[] delimiters)
