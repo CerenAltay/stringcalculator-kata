@@ -48,6 +48,7 @@ namespace StringCalculatorTask
 
             return stringInput;
         }
+
         private static List<string> AddCustomDelimitersToList(string stringInput, List<string> delimiters)
         {
             string customDelimiter;

@@ -93,5 +93,14 @@ namespace StringCalculatorTask
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("//[*][%]\n1*2%3", 6)]
+        public void Add_ContainsMultipleDelimiters_ReturnsSum(string numbers, int expected)
+        {
+            var result = _stringCalculator.Add(numbers);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
